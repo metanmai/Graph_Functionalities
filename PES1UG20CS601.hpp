@@ -9,6 +9,7 @@
 #include "Kruskal.h"
 #include "Prim.h"
 #include "Katz.h"
+#include "UCS.h"
 
 using namespace std;
 
@@ -84,15 +85,10 @@ public:
 		return findKatzCentrality<T, W>(adjList, alpha, beta, nodeList.size());
 	}
 
-	[[maybe_unused]] std::vector<T> uniformCostSearch(const T& start, const T& goal) const
+	[[maybe_unused]] std::vector<T> uniformCostSearch(T start, T goal)
 	{
-		vector<T> answer;
-
-		priority_queue<pair<int, int>> pq;
-
+		return findUCS<T, W>(adjList, start, goal, nodeList.size());
 	}
-
-
 
 	// Algorithm implementations
 	std::vector<int> nodeColoring() const;

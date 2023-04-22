@@ -15,13 +15,11 @@ int main()
 	for(int i = 0; i < 5; i++)
 		myGraph.addNode(i);
 
-	myGraph.addEdge(0, 1, random());
-	myGraph.addEdge(1, 2, random());
-	myGraph.addEdge(2, 3, random());
-	myGraph.addEdge(3, 4, random());
-	myGraph.addEdge(4, 0, random());
+	vector<vector<int>> edges = {{2,1,1},{2,3,1},{3,4,1}};
+	for(auto edge : edges)
+		myGraph.addEdge(edge[0], edge[1], edge[2]);
 
-	vector<double> temp = myGraph.katzCentrality(0.5587, 0.421);
+	vector<int> temp = myGraph.uniformCostSearch(2, 4);
 
 	for(auto ele : temp)
 		cout << ele << " ";

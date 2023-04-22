@@ -10,6 +10,7 @@
 #include "Prim.h"
 #include "Katz.h"
 #include "UCS.h"
+#include "Node Coloring.h"
 
 using namespace std;
 
@@ -89,9 +90,12 @@ public:
 	{
 		return findUCS<T, W>(adjList, start, goal, nodeList.size());
 	}
+	std::vector<int> nodeColoring()
+	{
+		return findNodeColors<T, W>(adjList, nodeList);
+	}
 
 	// Algorithm implementations
-	std::vector<int> nodeColoring() const;
 	std::vector<int> edgeColoring() const;
 	void completeEdges();
 	std::vector<std::vector<T>> connectedComponents() const;

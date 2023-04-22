@@ -61,12 +61,12 @@ public:
 		}
 	}
 
-	[[maybe_unused]] [[nodiscard]] bool hasCycle() // Complete
+	[[maybe_unused]] [[nodiscard]] bool hasCycle()
 	{
 		return checkCycle<T, W>(adjList, nodeList, directed);
 	}
 
-	[[maybe_unused]] std::vector<T> iterativeDFS(T start) // Complete
+	[[maybe_unused]] std::vector<T> iterativeDFS(T start)
 	{
 		return findIterativeDFS(adjList, start);
 	}
@@ -95,8 +95,12 @@ public:
 		return findNodeColors<T, W>(adjList, nodeList);
 	}
 
+	std::vector<int> edgeColoring() const
+	{
+		return findEdgeColors<T, W>(adjList, edgeList);
+	}
+
 	// Algorithm implementations
-	std::vector<int> edgeColoring() const;
 	void completeEdges();
 	std::vector<std::vector<T>> connectedComponents() const;
 

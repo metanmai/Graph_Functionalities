@@ -10,7 +10,7 @@ using namespace std;
 #define GRAPH_FUNCTIONALITIES_NODE_COLORING_H
 
 template<typename T, typename W>
-vector<T> findNodeColors(map<T, map<T, W>> &adjList, set<int> &nodeList)
+vector<int> findNodeColors(map<T, map<T, W>> &adjList, set<int> &nodeList)
 {
 	vector<T> answer(nodeList.size(), -1);
 	vector<set<T>> cantBe(nodeList.size());

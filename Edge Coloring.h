@@ -11,6 +11,11 @@ using namespace std;
 #define GRAPH_FUNCTIONALITIES_EDGE_COLORING_H
 
 template<typename T, typename W>
-vector<int>
+vector<int> EdgeColoring(map<T, map<T, W>> &adjList, vector<Edge<T, W>> &edgeList)
+{
+	vector<int> answer(edgeList.size(), -1);
+	vector<set<
+
+}
 
 #endif //GRAPH_FUNCTIONALITIES_EDGE_COLORING_H

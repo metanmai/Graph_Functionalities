@@ -12,8 +12,8 @@ using namespace std;
 template<typename T, typename W>
 vector<int> findNodeColors(map<T, map<T, W>> &adjList, set<int> &nodeList)
 {
-	vector<T> answer(nodeList.size(), -1);
-	vector<set<T>> cantBe(nodeList.size());
+	vector<int> answer(nodeList.size(), -1);
+	vector<set<int>> cantBe(nodeList.size());
 	queue<pair<T, W>> q;
 	answer[0] = 0;
 

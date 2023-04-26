@@ -110,12 +110,12 @@ public:
 
 	vector<vector<T>> connectedComponents()
 	{
-		return findComponents(adjList, );
-	};
+		return findComponents<T, W>(adjList);
+	}
 
 	void completeEdges()
 	{
-		findCompleteEdges(adjList, edgeList, nodeList.size());
+		findCompleteEdges<T, W>(adjList, edgeList, nodeList.size());
 	}
 
 	// Algorithm implementations

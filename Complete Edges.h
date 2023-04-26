@@ -63,7 +63,6 @@ void findCompleteEdges(map<T, map<T, W>> &adjList, vector<Edge<T, W>> &edgeList,
 			edgeList.push_back({node1, node2, weight});
 
 			cout << "An Edge has been created between " << node1 << "and " << node2 << endl;
-
 			return;
 		}
 }

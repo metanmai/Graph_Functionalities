@@ -6,6 +6,7 @@
 #include "Edge.h"
 #include "Cycle.h"
 #include "DFS.h"
+#include "Components.h"
 #include "Kruskal.h"
 #include "Prim.h"
 #include "Katz.h"
@@ -68,6 +69,11 @@ public:
 		return checkCycle<T, W>(adjList, nodeList, directed);
 	}
 
+	vector<vector<T>> connectedComponents()
+	{
+		return findComponents<T, W>(adjList);
+	}
+
 	[[maybe_unused]] vector<T> iterativeDFS(T start)
 	{
 		return findIterativeDFS(adjList, start);
@@ -108,16 +114,8 @@ public:
 		return findEdgeColors<T, W>(adjList, edgeList);
 	}
 
-	vector<vector<T>> connectedComponents()
-	{
-		return findComponents<T, W>(adjList);
-	}
-
 	void completeEdges()
 	{
 		findCompleteEdges<T, W>(adjList, edgeList, nodeList.size());
 	}
-
-	// Algorithm implementations
-
 };

@@ -37,7 +37,13 @@ W findWeight(map<T, map<T, W>> &adjList, int node1, int node2)
 template<typename T, typename W>
 void findCompleteEdges(map<T, map<T, W>> &adjList, vector<Edge<T, W>> &edgeList, int n)
 {
-	vector<double> centralities = findKatzCentrality(adjList, 0.25, 0.2);
+	double alpha, beta;
+
+	cout << "Enter the value for alpha and beta : ";
+	cin >> alpha >> beta;
+	cout << endl;
+
+	vector<double> centralities = findKatzCentrality(adjList, alpha, beta, n);
 	vector<pair<double, int>> sortedCentralities(n);
 
 	for(int i = 0; i < n; i++)
@@ -48,21 +54,21 @@ void findCompleteEdges(map<T, map<T, W>> &adjList, vector<Edge<T, W>> &edgeList,
 	for(int i = 0; i < n; i++)
 		for(int j = i + 1; j < n; j++)
 		{
-			int node1 = i, node2 = j;
+			int node1 = sortedCentralities[i].second, node2 = sortedCentralities[j].second;
 
-			if(edgeExists<T, W>(adjList, i, j) or
-			   edgeExists<T, W>(adjList, j, i))
+			if(edgeExists<T, W>(adjList, node1, node2) or
+			   edgeExists<T, W>(adjList, node2, node1))
 				continue;
 
-			else if(edgeExists<T, W>(adjList, i, j) and
-			        !edgeExists<T, W>(adjList, j, i))
+			else if(edgeExists<T, W>(adjList, node1, node2) and
+			        !edgeExists<T, W>(adjList, node2, node1))
 				swap(node1, node2);
 
-			auto weight = findWeight<T, W> (adjList, i, j);
+			auto weight = findWeight<T, W> (adjList, node1, node2);
 			adjList[node1][node2] = weight;
 			edgeList.push_back({node1, node2, weight});
 
-			cout << "An Edge has been created between " << node1 << "and " << node2 << endl;
+			cout << "An Edge has been created between " << node1 << " and " << node2 << " with weight " << weight << endl;
 			return;
 		}
 }

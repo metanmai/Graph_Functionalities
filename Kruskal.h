@@ -6,6 +6,9 @@
 #include "Edge.h"
 #include "DisjointSet.h"
 
+#define ff first
+#define ss second
+
 using namespace std;
 
 #ifndef GRAPH_FUNCTIONALITIES_KRUSKAL_H

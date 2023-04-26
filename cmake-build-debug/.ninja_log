@@ -1,6 +1,6 @@
 # ninja log v5
-1	97	1682158880574829882	build.ninja	7a1592ac5b3b6c93
-2	804	1682158192930778966	CMakeFiles/Graph_Functionalities.dir/main.cpp.o	600fc8332ef5ab0a
+1	97	1682531209680330129	build.ninja	7a1592ac5b3b6c93
+2	603	1682508949489229625	CMakeFiles/Graph_Functionalities.dir/main.cpp.o	600fc8332ef5ab0a
 2	110	1682087576939386107	CMakeFiles/Graph_Functionalities.dir/test.cpp.o	7d8d63f4f5be5806
-805	850	1682158192980642133	Graph_Functionalities	328dc1b556dc8b12
+603	632	1682508949521247675	Graph_Functionalities	328dc1b556dc8b12
 29	268	1682084117099587732	CMakeFiles/Graph_Functionalities.dir/PES1UG20CS601_.cpp.o	5732534db2e925ea

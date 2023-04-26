@@ -99,7 +99,7 @@ template <typename T, typename W>
 
 	for(int i = 0; i < n; i++)
 		for(int j = 0; j < n; j++)
-			inverse[i][j] *= beta;
+			inverse[i][j] *= beta * beta;
 
 	for(int i = 0; i < n; i++)
 		answer[i] = accumulate(inverse[i].begin(), inverse[i].end(), 0.0);

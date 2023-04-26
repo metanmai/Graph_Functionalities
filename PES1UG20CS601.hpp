@@ -10,7 +10,9 @@
 #include "Prim.h"
 #include "Katz.h"
 #include "UCS.h"
+#include "ASS.h"
 #include "Node Coloring.h"
+#include "Complete Edges.h"
 
 using namespace std;
 
@@ -66,45 +68,56 @@ public:
 		return checkCycle<T, W>(adjList, nodeList, directed);
 	}
 
-	[[maybe_unused]] std::vector<T> iterativeDFS(T start)
+	[[maybe_unused]] vector<T> iterativeDFS(T start)
 	{
 		return findIterativeDFS(adjList, start);
 	}
 
-	[[maybe_unused]] std::vector<Edge<T, W>> kruskalMST() const
+	[[maybe_unused]] vector<Edge<T, W>> kruskalMST()
 	{
 		return findKruskal(adjList, edgeList, nodeList.size());
 	}
 
-	[[maybe_unused]] std::vector<Edge<T, W>> primMST() const
+	[[maybe_unused]] vector<Edge<T, W>> primMST()
 	 {
 		 return findPrim(adjList, edgeList, nodeList);
 	 }
 
-	[[maybe_unused]] [[nodiscard]] std::vector<double> katzCentrality(double alpha, double beta)
+	[[maybe_unused]] [[nodiscard]] vector<double> katzCentrality(double alpha, double beta)
 	{
 		return findKatzCentrality<T, W>(adjList, alpha, beta, nodeList.size());
 	}
 
-	[[maybe_unused]] std::vector<T> uniformCostSearch(T start, T goal)
+	[[maybe_unused]] vector<T> uniformCostSearch(T start, T goal)
 	{
 		return findUCS<T, W>(adjList, start, goal, nodeList.size());
 	}
-	std::vector<int> nodeColoring()
+
+	vector<T> aStarSearch(T start, T goal, std::function<double(T, T)> heuristic)
+	{
+		return findASS<T, W>(adjList, start, goal, heuristic);
+	}
+
+	vector<int> nodeColoring()
 	{
 		return findNodeColors<T, W>(adjList, nodeList);
 	}
 
-	std::vector<int> edgeColoring() const
+	[[nodiscard]] vector<int> edgeColoring() const
 	{
 		return findEdgeColors<T, W>(adjList, edgeList);
 	}
 
-	// Algorithm implementations
-	void completeEdges();
-	std::vector<std::vector<T>> connectedComponents() const;
+	vector<vector<T>> connectedComponents()
+	{
+		return findComponents(adjList, );
+	};
 
-//	[[maybe_unused]] std::vector<T> uniformCostSearch(const T& start, const T& goal) const;
-	std::vector<T> aStarSearch(const T& start, const T& goal, std::function<double(T, T)> heuristic)
-	const;
+	void completeEdges()
+	{
+		findCompleteEdges(adjList, edgeList, nodeList.size());
+	}
+
+	// Algorithm implementations
+
 };

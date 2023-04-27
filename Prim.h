@@ -16,7 +16,7 @@ vector<Edge<T, W>> findPrim(map<T, map<T, W>> &adjList, vector<Edge<T, W>> &edge
 	int n = nodeList.size();
 	vector<Edge<T, W>> answer;
 
-	priority_queue<pair<T, pair<T, T>>, vector<pair<T, pair<T, T>>>, greater<>> pq;
+	priority_queue<pair<W, pair<T, T>>, vector<pair<W, pair<T, T>>>, greater<>> pq;
 	pq.push({0, {-1 , *nodeList.begin()}}); // {weight, {source, destination}};
 	set<T> visited;
 
@@ -28,7 +28,7 @@ vector<Edge<T, W>> findPrim(map<T, map<T, W>> &adjList, vector<Edge<T, W>> &edge
 		visited.insert(destination);
 
 		if(source != -1)
-			answer.push_back(currEdge);
+			answer.push_back({currEdge.first, currEdge.second, currWeight});
 
 		for(auto [nextNode, nextWeight] : adjList[source])
 			if(visited.find(nextNode) == visited.end())

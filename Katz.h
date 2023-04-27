@@ -88,6 +88,7 @@ template <typename T, typename W>
 		for(auto [next, weight] : neighbours)
 			adjMat[next][curr] = alpha * weight; // Transposed Adjacency matrix.
 
+
 	for(int i = 0; i < n; i++)
 		identity[i][i] = 1;
 

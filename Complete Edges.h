@@ -35,42 +35,51 @@ W findWeight(map<T, map<T, W>> &adjList, int node1, int node2)
 }
 
 template<typename T, typename W>
-void findCompleteEdges(map<T, map<T, W>> &adjList, vector<Edge<T, W>> &edgeList, int n)
+double findJaccard(map<T, map<T, W>> &adjList, T node1, T node2)
 {
-	double alpha, beta;
+	vector<T> v1, v2, v3;
+	for(auto [nextNode, _] : adjList[node1])
+		v1.push_back(nextNode);
 
-	cout << "Enter the value for alpha and beta : ";
-	cin >> alpha >> beta;
-	cout << endl;
+	for(auto [nextNode, _] : adjList[node2])
+		v2.push_back(nextNode);
 
-	vector<double> centralities = findKatzCentrality(adjList, alpha, beta, n);
-	vector<pair<double, int>> sortedCentralities(n);
+	sort(v1.begin(), v1.end());
+	sort(v2.begin(), v2.end());
 
-	for(int i = 0; i < n; i++)
-		sortedCentralities[i] = {centralities[i], i};
+	set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v3));
 
-	sort(centralities.begin(), centralities.end(), greater<> ());
+	return (v3.size()) / (double) (v1.size() + v2.size() - v3.size());
+}
+
+/* Find Jaccard Similarity between all pairs of nodes,
+ * and find the nodes with the most similarity and create an edge between them. */
+template<typename T, typename W>
+void findCompleteEdges(map<T, map<T, W>> &adjList, vector<Edge<T, W>> &edgeList, set<T> &nodeList)
+{
+	int n = nodeList.size(), maxJaccard = 0, node1 = 0, node2 = 1;
+	vector<T> nodes = vector(nodeList.begin(), nodeList.end());
 
 	for(int i = 0; i < n; i++)
 		for(int j = i + 1; j < n; j++)
 		{
-			int node1 = sortedCentralities[i].second, node2 = sortedCentralities[j].second;
+			int currJaccard = findJaccard<T, W>(adjList, nodes[i], nodes[j]);
 
-			if(edgeExists<T, W>(adjList, node1, node2) or
-			   edgeExists<T, W>(adjList, node2, node1))
-				continue;
+			if(currJaccard > maxJaccard)
+			{
+				if(!edgeExists(adjList, nodes[i], nodes[j]))
+					maxJaccard = currJaccard, node1 = nodes[i], node2 = nodes[j];
 
-			else if(edgeExists<T, W>(adjList, node1, node2) and
-			        !edgeExists<T, W>(adjList, node2, node1))
-				swap(node1, node2);
-
-			auto weight = findWeight<T, W> (adjList, node1, node2);
-			adjList[node1][node2] = weight;
-			edgeList.push_back({node1, node2, weight});
-
-			cout << "An Edge has been created between " << node1 << " and " << node2 << " with weight " << weight << endl;
-			return;
+				else if(!edgeExists(adjList, nodes[j], nodes[i]))
+					maxJaccard = currJaccard, node1 = nodes[j], node2 = nodes[i];
+			}
 		}
+
+	auto weight = findWeight<T, W> (adjList, node1, node2);
+	adjList[node1][node2] = weight;
+	edgeList.push_back({node1, node2, weight});
+//
+	cout << "An Edge has been created from " << node1 << " to " << node2 << " with weight " << weight << endl;
 }
 
 #endif //GRAPH_FUNCTIONALITIES_COMPLETE_EDGES_H

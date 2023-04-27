@@ -39,18 +39,11 @@ public:
 
 	void addEdge(const T& src, const T& dest, const W& weight)
 	{
-		try
-		{
-			if(nodeList.find(src) == nodeList.end() or
-			   nodeList.find(dest) == nodeList.end())
-				throw(100);
-		}
+		if(nodeList.find(src) == nodeList.end())
+			nodeList.insert(src);
 
-		catch(int errCode)
-		{
-			cout << "Error code : " << errCode << endl;
-			cout << "Invalid Edge!" << endl;
-		}
+		if(nodeList.find(dest) == nodeList.end())
+			   nodeList.insert(dest);
 
 		edgeList.push_back({src, dest, weight});
 
@@ -86,7 +79,7 @@ public:
 
 	[[maybe_unused]] vector<Edge<T, W>> primMST()
 	 {
-		 return findPrim(adjList, edgeList, nodeList);
+		 return findKruskal(adjList, edgeList, nodeList.size());
 	 }
 
 	[[maybe_unused]] [[nodiscard]] vector<double> katzCentrality(double alpha, double beta)
@@ -101,7 +94,7 @@ public:
 
 	vector<T> aStarSearch(T start, T goal, std::function<double(T, T)> heuristic)
 	{
-		return findASS<T, W>(adjList, start, goal, heuristic);
+		return findUCS<T, W>(adjList, start, goal, nodeList.size());;
 	}
 
 	vector<int> nodeColoring()
@@ -116,6 +109,6 @@ public:
 
 	void completeEdges()
 	{
-		findCompleteEdges<T, W>(adjList, edgeList, nodeList.size());
+		findCompleteEdges<T, W>(adjList, edgeList, nodeList);
 	}
 };
